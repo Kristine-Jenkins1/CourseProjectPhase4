@@ -16,20 +16,23 @@ def CreateUsers():
         
         UserDetail = username + "|" + userpwd + "|" + userrole + "\n"  
         UserFile.write(UserDetail)
-    UserFile.close()  
+    UserFile.close()
+    printuserinfo()
 
 def GetUserName():
-    return input("Enter username or 'END' to quit: ")
+    username = input("Enter username or 'END' to quit: ")
+    return username
    
 
 def GetUserPassword():
-    return input("Enter password: ")
+    pwd = input("Enter password: ")
+    return pwd
 
 def GetUserRole():
      userrole = input("Enter role (Admin or User): ")
      while True:
          if userrole.lower() == "admin" or userrole.lower() == "user":
-            return userrole
+            return userrole.upper()
          else:
             userrole = input("Invalid role entered. Please enter either Admin or User: ")
 
@@ -45,15 +48,13 @@ def printuserinfo():
         username = UserList[0]
         userpassword = UserList[1]
         userrole = UserList[2]
-        print("User Name: ", username, " Password: ", userpassword, " Role: ", userrole)
+        print("User Name: ", username.upper(), " Password: ", userpassword.upper(), " Role: ", userrole.upper())
 
 ###########################################################################
 
 def Login():
-        # read login information and store in a list
+    
     UserFile = open("user.txt", "r")
-    
-    
     UserName = input("Enter User Name: ")
     UserRole = "None"
     while True:
@@ -140,7 +141,7 @@ def printinfo(DetailsPrinted):
         EmpTotals["TotTax"] = TotTax
         EmpTotals["TotNetPay"] = TotNetPay
         DetailsPrinted = True   
-    if (DetailsPrinted):  #skip of no detail lines printed
+    if (DetailsPrinted):
         PrintTotals (EmpTotals)
     else:
         print("No detail information to print")
@@ -161,12 +162,12 @@ if __name__ == "__main__":
     print()
     print("##### Data Entry #####")
     UserRole, UserName = Login()
-    DetailsPrinted = False  ###
+    DetailsPrinted = False
     EmpTotals = {} 
     if UserRole == "NONE":
         print(UserName," is invalid.")
     else:
-    # only admin users can enter data
+    
         if UserRole == "ADMIN":
 
             EmpFile = open("Employees.txt", "a+")                
