@@ -1,0 +1,2 @@
+UserName|UsePwd|Admin
+Bobby|UserPwd1|User

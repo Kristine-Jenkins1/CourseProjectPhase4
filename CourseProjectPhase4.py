@@ -28,15 +28,14 @@ def GetUserPassword():
 def GetUserRole():
      userrole = input("Enter role (Admin or User): ")
      while True:
-         userrole = input("Enter role (Admin or User): ")
-         if userrole.lower() in ("admin", "user"):
-            return userrole.lower()
+         if userrole.lower() == "admin" or userrole.lower() == "user":
+            return userrole
          else:
-            print("Invalid role. Please enter 'Admin' or 'User'.")
+            userrole = input("Invalid role entered. Please enter either Admin or User: ")
 
 
 def printuserinfo():
-    UserFile = open("Users.txt","r")
+    UserFile = open("user.txt","r")
     while True:
         UserDetail = UserFile.readline()
         if not UserDetail:
@@ -52,7 +51,7 @@ def printuserinfo():
 
 def Login():
         # read login information and store in a list
-    UserFile = open("Users.txt", "r")
+    UserFile = open("user.txt", "r")
     
     
     UserName = input("Enter User Name: ")
@@ -162,7 +161,6 @@ if __name__ == "__main__":
     print()
     print("##### Data Entry #####")
     UserRole, UserName = Login()
-    
     DetailsPrinted = False  ###
     EmpTotals = {} 
     if UserRole == "NONE":
