@@ -20,13 +20,22 @@ def CreateUsers():
     printuserinfo()
 
 def GetUserName():
-    username = input("Enter username or 'END' to quit: ")
-    return username
+    username = input("Enter username or 'END' to quit:   ")
+    if username == "":
+        print("Username not valid. Please enter a username.")
+        return GetUserName()
+    else:
+        return username.upper()
+    
    
 
 def GetUserPassword():
     pwd = input("Enter password: ")
-    return pwd
+    if pwd == "":
+        print("Password not valid. Please enter a password.")
+        return GetUserPassword()
+    else:
+        return pwd.upper()
 
 def GetUserRole():
      userrole = input("Enter role (Admin or User): ")
