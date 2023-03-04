@@ -55,7 +55,6 @@ def printuserinfo():
         print("User Name: ", username, " Password: ", userpassword, " Role: ", userrole)
 
 ###########################################################################
-
 def Login():
     UserFile = open("user.txt", "r")
     UserName = input("Enter User Name: ")
@@ -72,8 +71,6 @@ def Login():
         return Login()
     else:
      return UserRole, UserName
-
-
 ###########################################################################
 def GetEmpName():
     empname = input("Enter employee name: ")
