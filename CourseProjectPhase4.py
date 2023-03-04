@@ -58,21 +58,20 @@ def printuserinfo():
 
 def Login():
     UserFile = open("user.txt", "r")
-    UserName = input("Enter User Name: ").upper()
-    UserRole = "None"
-    while True:
-       UserDetail = UserFile.readline()
-             
-       if not UserDetail:
-           return UserRole, UserName
-       UserDetail = UserDetail.replace("\n", "")
-       
-       UserList = UserDetail.split('|')
-                  
-       if UserName == UserList[0]:
-            UserRole = UserList[2]  # user is valid, return role
+    UserName = input("Enter User Name: ")
+    
+    for UserDetail in UserFile.readlines():
+        UserDetail = UserDetail.replace("\n", "")
+        UserList = UserDetail.split("|")
+        if UserName == UserList[0]:
+            UserRole = UserList[2] # store the user role
             return UserRole, UserName
-    return UserRole, UserName
+    
+    if UserName != UserList[0]:
+        print("Invalid username entered.")
+        return Login()
+    else:
+     return UserRole, UserName
 
 
 ###########################################################################
@@ -166,12 +165,11 @@ if __name__ == "__main__":
     UserRole, UserName = Login()
     DetailsPrinted = False
     EmpTotals = {} 
-    if UserName == "" or UserName.upper() == "END":
+    if UserRole == None:
         print(UserName," is invalid.")
     else:
-    
-        if UserRole.upper() == "ADMIN":
-
+     #only admin users can enter data
+        if UserRole == "ADMIN":
             EmpFile = open("Employees.txt", "a+")                
             while True:
                 empname = GetEmpName()
