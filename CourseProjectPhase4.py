@@ -6,14 +6,12 @@ from datetime import datetime
 def CreateUsers():
     print('##### Create users, passwords, and roles #####')
     UserFile = open("user.txt", "a")
-     
     while True:
         username = GetUserName()
         if (username.upper() == "END"):
             break
         userpwd = GetUserPassword()
         userrole = GetUserRole()
-        
         UserDetail = username + "|" + userpwd + "|" + userrole + "\n"  
         UserFile.write(UserDetail)
     UserFile.close()
@@ -26,8 +24,6 @@ def GetUserName():
         return GetUserName()
     else:
         return username.upper()
-    
-   
 
 def GetUserPassword():
     pwd = input("Enter password: ")
@@ -40,11 +36,10 @@ def GetUserPassword():
 def GetUserRole():
      userrole = input("Enter role (Admin or User): ")
      while True:
-         if userrole.lower() == "admin" or userrole.lower() == "user":
+         if (userrole.upper() == "ADMIN" or userrole.upper() == "USER"):
             return userrole.upper()
          else:
-            userrole = input("Invalid role entered. Please enter either Admin or User: ")
-
+            userrole = input("Invalid role entered. Please enter role (Admin or User): ")
 
 def printuserinfo():
     UserFile = open("user.txt","r")
@@ -57,14 +52,13 @@ def printuserinfo():
         username = UserList[0]
         userpassword = UserList[1]
         userrole = UserList[2]
-        print("User Name: ", username.upper(), " Password: ", userpassword.upper(), " Role: ", userrole.upper())
+        print("User Name: ", username, " Password: ", userpassword, " Role: ", userrole)
 
 ###########################################################################
 
 def Login():
-    
     UserFile = open("user.txt", "r")
-    UserName = input("Enter User Name: ")
+    UserName = input("Enter User Name: ").upper()
     UserRole = "None"
     while True:
        UserDetail = UserFile.readline()
@@ -80,13 +74,14 @@ def Login():
             return UserRole, UserName
     return UserRole, UserName
 
+
 ###########################################################################
 def GetEmpName():
     empname = input("Enter employee name: ")
     return empname
 def GetDatesWorked():
-    fromdate = input("Enter Start Date (mm/dd/yyyy: ")
-    todate = input("Enter End Date (mm/dd/yyyy: ")
+    fromdate = input("Enter Start Date (mm/dd/yyyy): ")
+    todate = input("Enter End Date (mm/dd/yyyy): ")
     return fromdate, todate
 def GetHoursWorked():
     hours = float(input('Enter amount of hours worked:  '))
@@ -163,8 +158,6 @@ def PrintTotals(EmpTotals):
     print(f'Total Net Pay: {EmpTotals["TotNetPay"]:,.2f}')
 
 
-   
-
 if __name__ == "__main__":
     ##################################################
     CreateUsers()
@@ -173,11 +166,11 @@ if __name__ == "__main__":
     UserRole, UserName = Login()
     DetailsPrinted = False
     EmpTotals = {} 
-    if UserRole == "NONE":
+    if UserName == "" or UserName.upper() == "END":
         print(UserName," is invalid.")
     else:
     
-        if UserRole == "ADMIN":
+        if UserRole.upper() == "ADMIN":
 
             EmpFile = open("Employees.txt", "a+")                
             while True:
